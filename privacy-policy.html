@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cemzo - Privacy Policy</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Roboto, "Segoe UI", Arial; line-height:1.6; color:#111; padding:24px; max-width:900px; margin:0 auto; }
+    h1,h2,h3 { color:#0b61a4; }
+    section{margin-bottom:20px}
+    .muted{color:#666}
+    .note{background:#f5f8fb;border-left:4px solid #dfeefb;padding:12px;margin:12px 0}
+    a{color:#0b61a4}
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy — Cemzo (Users App)</h1>
+  <p class="muted">Effective date: October 24, 2025</p>
+
+  <section>
+    <h2>App and contact</h2>
+    <p>This privacy policy applies to the Cemzo mobile application (Android package <code>com.cemzo.user</code>, version 1.0.2) and describes what data the app collects, where it is stored, and why. For questions or data requests contact: <a href="mailto:contact@cemzo.com">contact@cemzo.com</a> or call +91 79053 21205.</p>
+  </section>
+
+  <section>
+    <h2>Permissions requested (Android)</h2>
+    <p>The app's Android manifest (managed via <code>app.json</code>) requests the following runtime/declared permissions and uses them for the purposes noted below:</p>
+    <ul>
+      <li><strong>INTERNET</strong> &amp; <strong>ACCESS_NETWORK_STATE</strong> — required for all network communication with Cemzo backend services (API base URL shown in source: <code>https://api.example.com</code> in <code>api/axiosInstance.ts</code>).</li>
+      <li><strong>CAMERA</strong> — used to capture photos for profile images and for AR preview features (see <code>app/screens/edit-profile.tsx</code> and <code>app/screens/ar-placement.tsx</code>).</li>
+      <li><strong>READ_EXTERNAL_STORAGE</strong> &amp; <strong>WRITE_EXTERNAL_STORAGE</strong> — requested to allow selecting, saving, and uploading images/files from device storage (image picker and AR model uploads).</li>
+    </ul>
+    <div class="note">Only request permissions at runtime where the UI requires them (the codebase contains permission request placeholders near AR and profile image flows).</div>
+  </section>
+
+  <section>
+    <h2>Data collected &amp; where it is stored</h2>
+    <p>Below are concrete, discoverable storage locations and network endpoints used by the app:</p>
+    <ul>
+      <li><strong>Authentication tokens and sensitive data</strong> — stored in Expo SecureStore via <code>storage/secureStoreHelper.ts</code> (keys such as <code>auth_token</code>, <code>refresh_token</code>). Tokens are attached to API requests by <code>api/axiosInstance.ts</code>.</li>
+      <li><strong>Cached and non-sensitive data</strong> — stored in AsyncStorage via <code>storage/asyncStorageHelper.ts</code> (product lists, categories, user preferences, search history).</li>
+      <li><strong>Structured offline data</strong> — cart items, wishlist, orders and in-app notifications are stored in the local SQLite database via <code>database/sqliteHelper.ts</code>.</li>
+      <li><strong>Network backend</strong> — all network requests go to the configured API (<code>https://api.example.com</code> as seen in <code>api/axiosInstance.ts</code>). This is where data is transmitted and processed by Cemzo services.</li>
+      <li><strong>Push notifications</strong> — the project includes <code>expo-notifications</code> in dependencies; notification delivery and related metadata are used to show order status, promotions and system messages and are persisted locally in SQLite (<code>notifications</code> table).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How we use data</h2>
+    <ul>
+      <li>Authenticate and authorize users (login tokens).</li>
+      <li>Enable shopping features: cart, orders, checkout and order history.</li>
+      <li>Support profile management and images (camera + storage).</li>
+      <li>Provide AR previews (requires camera and local image access).</li>
+      <li>Deliver push notifications and in-app messages.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Third-party sharing &amp; external services</h2>
+    <p>Data is sent to Cemzo backend services at the configured API host (see <code>api/axiosInstance.ts</code>). The codebase does not include explicit third-party analytics SDKs in dependencies (no analytics packages were found), but standard platform services (e.g. app store or payment processors used by backend) may process data outside the app. Any third-party processors are controlled by Cemzo backend policies.</p>
+  </section>
+
+  <section>
+    <h2>User controls &amp; data deletion</h2>
+    <p>From the app you can:</p>
+    <ul>
+      <li>Update and delete profile details via the profile screens (see <code>app/(tabs)/profile.tsx</code> and <code>app/screens/edit-profile.tsx</code>).</li>
+      <li>Clear local caches using app settings (AsyncStorage and SQLite rows can be cleared; secure tokens can be removed via SecureStore helper).</li>
+      <li>Request full data deletion or export by contacting <a href="mailto:contact@cemzo.com">contact@cemzo.com</a>. Provide the email associated with the account to help locate data.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Security</h2>
+    <p>Sensitive tokens are stored using Expo SecureStore (<code>storage/secureStoreHelper.ts</code>). Non-sensitive caches use AsyncStorage and structured local data uses SQLite. Network traffic should be sent over HTTPS; the axios instance in <code>api/axiosInstance.ts</code> attaches the Bearer token from SecureStore to API requests.</p>
+  </section>
+
+  <section>
+    <h2>Children</h2>
+    <p>The app is not intended for children. If you believe we have collected a child's data, contact us at <a href="mailto:contact@cemzo.com">contact@cemzo.com</a>.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>We may update this privacy policy to reflect changes in the app or legal requirements. The effective date at the top will be updated when changes are published.</p>
+  </section>
+
+  <section>
+    <h2>Copy for Play Console</h2>
+    <p class="muted">Use this short summary when asked by Google Play:</p>
+    <div class="note">
+      Cemzo collects user profile information (name, email, phone), authentication tokens stored securely on device, local app data (cart, wishlist, orders) stored in SQLite, and cached non-sensitive items in AsyncStorage. The app accesses the camera to capture profile photos and enable AR preview features, and requests storage access to select and save images. Network calls are made to Cemzo backend services (configured API endpoint). For full details and data requests contact contact@cemzo.com.
+    </div>
+  </section>
+
+  <footer class="muted">
+    <p>App version: 1.0.2 — Package: com.cemzo.user</p>
+    <p>Sources referenced: <code>app.json</code>, <code>api/axiosInstance.ts</code>, <code>storage/secureStoreHelper.ts</code>, <code>storage/asyncStorageHelper.ts</code>, <code>database/sqliteHelper.ts</code>, <code>app/screens/ar-placement.tsx</code>, <code>app/screens/edit-profile.tsx</code>, <code>app/(tabs)/profile.tsx</code>.</p>
+  </footer>
+</body>
+</html>
